@@ -3,7 +3,7 @@ package golangx
 import (
 	"github.com/aesoper101/go-utils/str"
 	"golang.org/x/mod/modfile"
-	"io/ioutil"
+	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
@@ -55,7 +55,7 @@ func GoModName() string {
 	}
 
 	filename := GoModFilePath()
-	data, _ := ioutil.ReadFile(filename)
+	data, _ := os.ReadFile(filename)
 
 	if f, _ := modfile.Parse(filename, data, nil); f != nil {
 		return f.Module.Mod.Path

@@ -105,25 +105,25 @@ func MkdirIfNotExist(dir string) error {
 }
 
 // CreateFileFromByteFn creates a file from the functionx that returns a byte slice.
-func CreateFileFromByteFn(file string, overwrite bool, f func() []byte) error {
-	if IsExists(file) && !overwrite {
+func CreateFileFromByteFn(filename string, overwrite bool, f func() []byte) error {
+	if IsExists(filename) && !overwrite {
 		return errors.New("file already exists, and overwrite is false")
 	}
 
-	dir := filepath.Dir(file)
+	dir := filepath.Dir(filename)
 	if err := MkdirIfNotExist(dir); err != nil {
 		return err
 	}
 
-	w, err := os.OpenFile(file, os.O_CREATE|os.O_RDWR, os.ModePerm)
+	file, err := os.OpenFile(filename, os.O_CREATE|os.O_RDWR, os.ModePerm)
 	if err != nil {
 		return err
 	}
 	defer func(w *os.File) {
 		_ = w.Close()
-	}(w)
+	}(file)
 
-	_, err = w.Write(f())
+	_, err = file.Write(f())
 	return err
 }
 

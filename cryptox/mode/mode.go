@@ -20,8 +20,8 @@ func (m Mode) Is(ms Mode) bool {
 }
 
 func (m Mode) Not(ms ...Mode) bool {
-	for _, m := range ms {
-		if m == m {
+	for _, m1 := range ms {
+		if m == m1 {
 			return false
 		}
 	}

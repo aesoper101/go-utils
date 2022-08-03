@@ -44,21 +44,14 @@ func createCryptoMode(opts options) (mode.CryptoMode, error) {
 }
 
 func newBlock(m Method, key []byte) (cipher.Block, error) {
-	var block cipher.Block
-	var err error
 	switch m {
 	case AES:
-		block, err = aes.NewCipher(key)
-		break
+		return aes.NewCipher(key)
 	case DES:
-		block, err = des.NewCipher(key)
-		break
+		return des.NewCipher(key)
 	case DES3:
-		block, err = des.NewTripleDESCipher(key)
-		break
+		return des.NewTripleDESCipher(key)
 	default:
-		block, err = aes.NewCipher(key)
+		return aes.NewCipher(key)
 	}
-
-	return block, err
 }

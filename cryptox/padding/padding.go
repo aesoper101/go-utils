@@ -2,7 +2,6 @@ package padding
 
 import (
 	"crypto/rand"
-	mRand "math/rand"
 )
 
 type Mode string
@@ -22,8 +21,8 @@ func (m Mode) String() string {
 }
 
 func (m Mode) Not(ms ...Mode) bool {
-	for _, m := range ms {
-		if m == m {
+	for _, m1 := range ms {
+		if m == m1 {
 			return false
 		}
 	}
@@ -62,7 +61,7 @@ func randBytes(size int) (r []byte) {
 	r = make([]byte, size)
 	n, err := rand.Read(r)
 	if err != nil || n != size {
-		mRand.Read(r)
+		_, _ = rand.Read(r)
 	}
 	return
 }

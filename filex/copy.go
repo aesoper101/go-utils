@@ -10,18 +10,20 @@ import (
 // CopyFile copies a file from src to dst. returns an error if something goes wrong.
 // if overwrite slice is not empty, the first one will be used to determine if the file should be overwritten.
 func CopyFile(src, dst string, overwrite ...bool) error {
-	in, err := os.Open(src)
+	file, err := os.Open(src)
 	if err != nil {
 		return err
 	}
-	defer in.Close()
+	defer func() {
+		_ = file.Close()
+	}()
 
 	canOverwrite := false
 	if len(overwrite) > 0 {
 		canOverwrite = overwrite[0]
 	}
 
-	return CreateFileFromReader(dst, canOverwrite, in)
+	return CreateFileFromReader(dst, canOverwrite, file)
 }
 
 // CopyDir copies a directory from src to dst. returns an error if something goes wrong.
@@ -43,7 +45,7 @@ func CopyDir(src, dst string, overwrite ...bool) error {
 			return err
 		}
 
-		relPath, err := filepath.Rel("testdata", path)
+		relPath, err := filepath.Rel(src, path)
 		if err != nil {
 			return err
 		}

@@ -1,13 +1,15 @@
 package filex
 
-import "io/ioutil"
+import (
+	"os"
+)
 
-// WhenFileRead is a functionx that executes a functionx when a file is read.
-func WhenFileRead(filePath string, callback func([]byte) error) error {
-	file, err := ioutil.ReadFile(filePath)
+// WhenFileRead is a function that executes a function when a file is read.
+func WhenFileRead(filename string, callback func([]byte) error) error {
+	bytes, err := os.ReadFile(filename)
 	if err != nil {
 		return err
 	}
 
-	return callback(file)
+	return callback(bytes)
 }

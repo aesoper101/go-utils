@@ -11,7 +11,8 @@ import (
 )
 
 var (
-	testSrc = `package foo
+	testSrc = `
+package foo
 
 import (
 	"fmt"
@@ -25,7 +26,7 @@ func bar() {
 )
 
 func TestCollectImports(t *testing.T) {
-	p := MustParser(NewParser(testSrc, nil, parser.ParseComments))
+	p := MustParser(NewParser("", testSrc, parser.ParseComments))
 
 	imports := CollectImports(p)
 
@@ -37,7 +38,7 @@ func TestCollectImports(t *testing.T) {
 }
 
 func TestRemoveUnusedImports(t *testing.T) {
-	p := MustParser(NewParser(testSrc, nil, parser.ParseComments))
+	p := MustParser(NewParser("", testSrc, parser.ParseComments))
 
 	RemoveUnusedImports(p)
 

@@ -17,7 +17,7 @@ func TestNew(t *testing.T) {
 		WithPadding(padding.NO),
 	)
 	require.Zero(t, err)
-	require.Equal(t, "*aes.baseCrypto", reflect.TypeOf(c).String())
+	require.Equal(t, "*cryptox.baseCrypto", reflect.TypeOf(c).String())
 }
 
 func Test_aesCrypto_Encrypt(t *testing.T) {

@@ -9,6 +9,7 @@ import (
 	"go/token"
 	"golang.org/x/tools/go/ast/astutil"
 	"io/ioutil"
+	"os"
 	"path/filepath"
 	"regexp"
 	"strconv"
@@ -232,7 +233,7 @@ func goModuleRoot(dir string) (string, bool) {
 			break
 		}
 
-		if content, err := ioutil.ReadFile(filepath.Join(modDir, "go.mod")); err == nil {
+		if content, err := os.ReadFile(filepath.Join(modDir, "go.mod")); err == nil {
 			moduleName := string(modRegex.FindSubmatch(content)[1])
 			result = goModuleSearchResult{
 				path:       moduleName,

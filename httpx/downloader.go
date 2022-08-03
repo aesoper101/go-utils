@@ -4,7 +4,6 @@ import (
 	"github.com/aesoper101/go-utils/filex"
 	"github.com/schollz/progressbar/v3"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -30,7 +29,7 @@ func Download(url, filename string, requestFns ...func(request *http.Request)) e
 
 	defer response.Body.Close()
 
-	body, err := ioutil.ReadAll(response.Body)
+	body, err := io.ReadAll(response.Body)
 	if err != nil {
 		return err
 	}
@@ -59,15 +58,17 @@ func DownloadWithProgress(url, filename string, requestFns ...func(request *http
 
 	_ = filex.MkdirIfNotExist(filepath.Dir(filename))
 
-	f, _ := os.OpenFile(filename, os.O_CREATE|os.O_WRONLY, 0644)
-	defer f.Close()
+	file, _ := os.OpenFile(filename, os.O_CREATE|os.O_WRONLY, 0600)
+	defer func() {
+		_ = file.Close()
+	}()
 
 	bar := progressbar.DefaultBytes(
 		response.ContentLength,
 		"downloading "+strings.Split(filepath.Base(filename), ".")[0],
 	)
 
-	_, err = io.Copy(io.MultiWriter(f, bar), response.Body)
+	_, err = io.Copy(io.MultiWriter(file, bar), response.Body)
 
 	return err
 }

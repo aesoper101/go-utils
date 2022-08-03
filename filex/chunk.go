@@ -24,15 +24,15 @@ func NewSplitFile(path string) (*SplitFile, error) {
 		return nil, errors.New("not a file")
 	}
 
-	fp, err := os.Open(path)
+	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
 	defer func(fp *os.File) {
 		_ = fp.Close()
-	}(fp)
+	}(file)
 
-	stat, err := fp.Stat()
+	stat, err := file.Stat()
 	if err != nil {
 		return nil, err
 	}

@@ -7,8 +7,7 @@ import (
 )
 
 type testdata struct {
-	name string
-	data interface{}
+	//name string
 }
 
 func TestNewFactory(t *testing.T) {
