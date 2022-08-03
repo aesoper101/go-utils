@@ -42,7 +42,7 @@ jobs:
     - name: Run Gosec Security Scanner
       uses: securego/gosec@master
       with:
-        args: '-exclude=G304,G401,G501,G502,G503,G504,G505 ./...'
+        args: '-exclude=G304,G401,G404,G501,G502,G503,G504,G505 ./...'
 
     - name: Build
       run: go build -v ./...
