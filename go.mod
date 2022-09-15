@@ -5,6 +5,7 @@ go 1.18
 require (
 	github.com/golang-jwt/jwt/v4 v4.4.1
 	github.com/iancoleman/strcase v0.2.0
+	github.com/lionsoul2014/ip2region/binding/golang v0.0.0-20220813035130-528d4bb57753
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/satori/go.uuid v1.2.0
 	github.com/schollz/progressbar/v3 v3.8.6
