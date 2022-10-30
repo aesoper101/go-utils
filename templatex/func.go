@@ -7,7 +7,7 @@ import (
 	"text/template"
 )
 
-var templateFuncMap = template.FuncMap{
+var DefaultTemplateFuncMap = template.FuncMap{
 	"toCamel":              str.ToCamel,
 	"toLowerCamel":         str.ToLowerCamel,
 	"toSnake":              str.ToSnake,

@@ -17,7 +17,7 @@ type Template struct {
 // New returns a new template with the functions in the FuncMap.
 func New(name string) *Template {
 	t := &Template{Template: template.New(name)}
-	return t.Funcs(templateFuncMap)
+	return t.Funcs(DefaultTemplateFuncMap)
 }
 
 // Parse parses text as a template body for t.
